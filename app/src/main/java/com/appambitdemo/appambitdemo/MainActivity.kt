@@ -42,20 +42,8 @@ fun BasicAppambitDemo() {
                 loading = true
                 response = "Creating consumer..."
 
-                val consumerData = """
-                {
-                    "app_key": "84e932d8-b9b9-4025-b574-0e411bbd86dd",
-                    "device_id": "00008101-000E17360C84001E",
-                    "device_model": "iPhone 16",
-                    "user_id": "00008101-000E17360C84001E",
-                    "os": "iOS 18.1",
-                    "country": "US",
-                    "language": "en"
-                }
-                """.trimIndent()
-
                 scope.launch {
-                    test.storeConsumer(consumerData) { result ->
+                    test.storeConsumer { result ->
                         loading = false
                         if (result.isSuccess) {
                             token = result.getOrNull()
@@ -82,15 +70,8 @@ fun BasicAppambitDemo() {
                 loading = true
                 response = "Login..."
 
-                val sessionData = """
-                {
-                    "timestamp": "2023-01-01T00:00:00Z"
-                }
-                """.trimIndent()
-
                 scope.launch {
                     test.startSession(
-                        body = sessionData,
                         headers = mapOf("Authorization" to "Bearer $token")
                     ) { result ->
                         loading = false
@@ -118,7 +99,7 @@ fun BasicAppambitDemo() {
         )
 
         Text(
-            text = "Token: ${token ?: "No disponible"}",
+            text = "Token: ${token ?: "Not available"}",
             modifier = Modifier.fillMaxWidth()
         )
     }
