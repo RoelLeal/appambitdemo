@@ -94,10 +94,10 @@ fun BasicAppambitDemo() {
                         headers = mapOf("Authorization" to "Bearer $token")
                     ) { result ->
                         loading = false
-                        if (result.isSuccess) {
-                            response = "Session initialized: ${result.getOrNull()}"
+                        response = if (result.isSuccess) {
+                            "Session initialized: ${result.getOrNull()}"
                         } else {
-                            response = "Error: ${result.exceptionOrNull()?.message}"
+                            "Error: ${result.exceptionOrNull()?.message}"
                         }
                     }
                 }
